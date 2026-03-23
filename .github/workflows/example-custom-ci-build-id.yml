@@ -42,6 +42,11 @@ jobs:
     outputs:
       record-key-exists: ${{ steps.record-key-check.outputs.defined }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Check for record key
         id: record-key-check
         run: |
@@ -59,6 +64,11 @@ jobs:
     outputs:
       uuid: ${{ steps.uuid.outputs.value }}
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Generate unique ID
         id: uuid
         # take the current commit + timestamp together
@@ -75,8 +85,13 @@ jobs:
     needs: [prepare]
     runs-on: ubuntu-24.04
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Print custom build id
         run: echo "Custom build id is ${{ needs.prepare.outputs.uuid }}"
@@ -106,8 +121,13 @@ jobs:
         # run 2 copies of the current job in parallel
         containers: [1, 2]
     steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594 # v2.16.0
+        with:
+          egress-policy: audit
+
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Print custom build id
         run: echo "Custom build id is ${{ needs.prepare.outputs.uuid }}"
