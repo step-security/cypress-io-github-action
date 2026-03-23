@@ -1,0 +1,141 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/basic-pnpm
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/basic
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/browser
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/component-tests
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/config
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/custom-command
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/env
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/install-command
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/install-only
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/nextjs
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/node-versions
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/quiet
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/recording
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-pnpm-workspaces
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-pnpm-workspaces/packages/workspace-1
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-pnpm-workspaces/packages/workspace-2
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-yarn-workspaces
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-yarn-workspaces/workspace-1
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start-and-yarn-workspaces/workspace-2
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/start
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/wait-on-vite
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/wait-on
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/webpack
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/yarn-classic
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/yarn-modern-pnp
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /examples/yarn-modern
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: daily
