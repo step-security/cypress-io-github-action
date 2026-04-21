@@ -1274,7 +1274,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v5
         with:
           version: 10
       - name: Install Node.js
