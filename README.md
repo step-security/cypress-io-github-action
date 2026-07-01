@@ -583,7 +583,10 @@ jobs:
     # let's make sure our "app" works on several versions of Node
     strategy:
       matrix:
-        node: [20, 22, 24, 25]
+        node:
+          - 22
+          - 24
+          - 25
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Checkout
@@ -1478,7 +1481,10 @@ jobs:
     # let's make sure our "app" works on several versions of Node
     strategy:
       matrix:
-        node: [20, 22, 24, 25]
+        node:
+          - 22
+          - 24
+          - 25
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Checkout
@@ -1512,7 +1518,10 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        node: [20, 22, 24, 25]
+        node:
+          - 22
+          - 24
+          - 25
     name: E2E on Node v${{ matrix.node }}
     steps:
       - uses: actions/checkout@v6
