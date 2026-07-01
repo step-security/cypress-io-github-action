@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   cypress-run:
     runs-on: ubuntu-24.04
@@ -16,7 +19,7 @@ jobs:
         node:
           - 22
           - 24
-          - 25
+          - 26
     name: Cypress E2E on Node v${{ matrix.node }}
     steps:
       - name: Harden the runner (Audit all outbound calls)
