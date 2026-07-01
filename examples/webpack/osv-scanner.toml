@@ -1,0 +1,7 @@
+[[IgnoredVulns]]
+id = "GHSA-64mm-vxmg-q3vj"
+reason = "Dev dependency in example only, not used in production"
+
+[[IgnoredVulns]]
+id = "GHSA-w5hq-g745-h8pq"
+reason = "Dev dependency in example only, not used in production"
