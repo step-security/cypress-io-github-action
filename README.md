@@ -611,7 +611,7 @@ jobs:
         node:
           - 22
           - 24
-          - 25
+          - 26
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Checkout
@@ -1509,7 +1509,7 @@ jobs:
         node:
           - 22
           - 24
-          - 25
+          - 26
     name: E2E on Node v${{ matrix.node }}
     steps:
       - name: Checkout
@@ -1546,7 +1546,7 @@ jobs:
         node:
           - 22
           - 24
-          - 25
+          - 26
     name: E2E on Node v${{ matrix.node }}
     steps:
       - uses: actions/checkout@v6

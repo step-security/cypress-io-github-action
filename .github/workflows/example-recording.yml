@@ -24,6 +24,10 @@ env:
   CYPRESS_RECORD_KEY: ${{ secrets.EXAMPLE_RECORDING_KEY }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   check-record-key:
     runs-on: ubuntu-24.04

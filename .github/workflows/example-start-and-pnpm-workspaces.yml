@@ -11,6 +11,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   # The example has pnpm workspaces in its "root" folder
   # examples/start-and-pnpm-workspaces
@@ -35,7 +38,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
         with:
-          version: 10
+          version: 11
 
         # See https://github.com/actions/setup-node
       - name: Install Node.js

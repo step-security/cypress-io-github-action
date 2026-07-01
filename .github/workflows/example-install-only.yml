@@ -6,6 +6,9 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   # do not install every dependency in this example
   # just install Cypress, but make sure to cache it
@@ -34,7 +37,7 @@ jobs:
           key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
 
       - name: Install Cypress 📥
-        run: npm install cypress@15.12.0 --save-dev
+        run: npm install cypress@15.16.0 --save-dev
 
       - name: Cypress tests 🧪
         uses: ./ # if copying, replace with step-security/cypress-io-github-action@v7
