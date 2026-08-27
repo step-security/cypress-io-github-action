@@ -1,13 +1,13 @@
 [[IgnoredVulns]]
-id = "GHSA-64mm-vxmg-q3vj"
+id = "GHSA-3jxr-9vmj-r5cp"
 reason = "Dev dependency in example only, not used in production"
 
 [[IgnoredVulns]]
-id = "GHSA-w5hq-g745-h8pq"
+id = "GHSA-mh99-v99m-4gvg"
 reason = "Dev dependency in example only, not used in production"
 
 [[IgnoredVulns]]
-id = "GHSA-v422-hmwv-36x6"
+id = "GHSA-rgw5-rvv9-x895"
 reason = "Dev dependency in example only, not used in production"
 
 [[IgnoredVulns]]
@@ -20,16 +20,4 @@ reason = "Dev dependency in example only, not used in production"
 
 [[IgnoredVulns]]
 id = "GHSA-v2hh-gcrm-f6hx"
-reason = "Dev dependency in example only, not used in production"
-
-[[IgnoredVulns]]
-id = "GHSA-395f-4hp3-45gv"
-reason = "Dev dependency in example only, not used in production"
-
-[[IgnoredVulns]]
-id = "GHSA-f5vj-f2hx-8m93"
-reason = "Dev dependency in example only, not used in production"
-
-[[IgnoredVulns]]
-id = "GHSA-m28w-2pqf-7qgj"
 reason = "Dev dependency in example only, not used in production"
