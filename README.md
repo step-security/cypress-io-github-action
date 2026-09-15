@@ -113,7 +113,7 @@ jobs:
         uses: step-security/cypress-io-github-action@v7
 ```
 
-The workflow file [example-basic.yml](.github/workflows/example-basic.yml) shows how Cypress runs on GH Actions using
+The workflow file [example-basic.yml](examples/basic/.github/workflows/example-basic.yml) shows how Cypress runs on GH Actions using
 Ubuntu (`22.04` and `24.04`), Windows, and macOS without additional OS dependencies necessary.
 
 This workflow uses the default [test type](https://on.cypress.io/choosing-testing-type)
@@ -141,7 +141,7 @@ jobs:
 ```
 
 See the example project [component-tests](examples/component-tests/) and
-the [example-component-test.yml](.github/workflows/example-component-test.yml) workflow for more details.
+the [example-component-test.yml](examples/component-tests/.github/workflows/example-component-test.yml) workflow for more details.
 
 ### Browser
 
@@ -366,7 +366,7 @@ jobs:
 
 For more information, see [Cypress.expose()](https://docs.cypress.io/api/cypress-api/expose) in the Cypress documentation.
 
-[![Expose example](https://github.com/cypress-io/github-action/actions/workflows/example-expose.yml/badge.svg)](.github/workflows/example-expose.yml)
+[![Expose example](https://github.com/cypress-io/github-action/actions/workflows/example-expose.yml/badge.svg)](examples/expose/.github/workflows/example-expose.yml)
 
 ### Specs
 
@@ -391,7 +391,7 @@ jobs:
 ```
 
 You can pass multiple specs and wild card patterns using multi-line parameter,
-see [example-config.yml](.github/workflows/example-config.yml):
+see [example-config.yml](examples/config/.github/workflows/example-config.yml):
 
 ```yml
 spec: |
@@ -856,7 +856,7 @@ combined in the same job using separate steps
 ```
 
 See the example project [component-test](examples/component-tests/) and
-the [example-component-test.yml](.github/workflows/example-component-test.yml) workflow for more details.
+the [example-component-test.yml](examples/component-tests/.github/workflows/example-component-test.yml) workflow for more details.
 
 ### Build app
 
@@ -1012,7 +1012,7 @@ Cypress tests after the server responds:
     wait-on: 'npx wait-on --timeout 60000 http://localhost:3000'
 ```
 
-See [example-wait-on.yml](.github/workflows/example-wait-on.yml) workflow file.
+See [example-wait-on.yml](examples/wait-on/.github/workflows/example-wait-on.yml) workflow file.
 
 If this action times out waiting for the server to respond, please see [Debugging](#debugging) section in this README
 file.
@@ -1029,7 +1029,7 @@ the [Installation](#installation) section below. If you want to overwrite the de
     install-command: yarn --frozen-lockfile --silent
 ```
 
-See [example-install-command.yml](.github/workflows/example-install-command.yml) workflow file.
+See [example-install-command.yml](examples/install-command/.github/workflows/example-install-command.yml) workflow file.
 
 If you do not commit a lock file to the repository, you cannot use the action to install dependencies. In this case you
 must ensure that dependencies are installed before using the action, and you must use the action option setting
@@ -1091,7 +1091,7 @@ This parameter is useful for special test cases, for example:
 - in the project [examples/custom-command](./examples/custom-command/), a
   JavaScript [examples/custom-command/index.js](./examples/custom-command/index.js) is run with `node .` through
   `command: npm run custom-test`
-- in the workflow [example-yarn-modern-pnp.yml](.github/workflows/example-yarn-modern-pnp.yml) Yarn Modern with Plug'n'
+- in the workflow [example-yarn-modern-pnp.yml](examples/yarn-modern-pnp/.github/workflows/example-yarn-modern-pnp.yml) Yarn Modern with Plug'n'
   Play is run with `command: yarn run --binaries-only cypress run` since [Yarn Plug'n'Play](#yarn-plugnplay) is not
   natively supported by the action.
 
@@ -1154,7 +1154,7 @@ Expressions, Contexts and Environment variables.
 If you re-run the GitHub workflow, if you use the same custom build id during recording, Cypress Cloud will cancel the
 run with "Build already finished" error. To avoid this, you need to generate a _new_ custom build id on every workflow
 re-run. A good solution showing in
-the [example-custom-ci-build-id.yml](.github/workflows/example-custom-ci-build-id.yml) file is to run a common job first
+the [example-custom-ci-build-id.yml](examples/recording/.github/workflows/example-custom-ci-build-id.yml) file is to run a common job first
 that just generates a new random ID. This ID can be used by the testing jobs to tie the build together. If the user
 re-runs the workflow a new unique build id is generated, allowing recording the new Cypress Cloud run.
 
@@ -1185,7 +1185,7 @@ jobs:
           CYPRESS_RECORD_KEY: ${{ secrets.EXAMPLE_RECORDING_KEY }}
 ```
 
-See the [example-custom-ci-build-id.yml](.github/workflows/example-custom-ci-build-id.yml) for the full workflow.
+See the [example-custom-ci-build-id.yml](examples/recording/.github/workflows/example-custom-ci-build-id.yml) for the full workflow.
 
 ### Working directory
 
@@ -1229,8 +1229,8 @@ section for examples of standard directory layouts, covering end-to-end testing 
 JavaScript and TypeScript options.
 
 Each of the examples in this monorepo is separated from other examples by using different working directories.
-See [example-basic.yml](.github/workflows/example-basic.yml) for one end-to-end test example using the parameter
-`working-directory` and [example-component-test.yml](.github/workflows/example-component-test.yml) for a component test
+See [example-basic.yml](examples/basic/.github/workflows/example-basic.yml) for one end-to-end test example using the parameter
+`working-directory` and [example-component-test.yml](examples/component-tests/.github/workflows/example-component-test.yml) for a component test
 example.
 
 ### Subfolders
@@ -1342,7 +1342,7 @@ The snippet below shows this principle.
 ```
 
 See the example project [start-and-pnpm-workspaces](examples/start-and-pnpm-workspaces/) and
-the [example-start-and-pnpm-workspaces.yml](.github/workflows/example-start-and-pnpm-workspaces.yml) workflow for a full
+the [example-start-and-pnpm-workspaces.yml](examples/start-and-pnpm-workspaces/.github/workflows/example-start-and-pnpm-workspaces.yml) workflow for a full
 working example.
 
 ### Yarn Classic
@@ -1438,7 +1438,7 @@ projects newly created with Yarn Modern.
 
 This action should discover the Yarn workspaces correctly. For example, see
 folder [examples/start-and-yarn-workspaces](examples/start-and-yarn-workspaces) and workflow
-file [example-start-and-yarn-workspaces.yml](.github/workflows/example-start-and-yarn-workspaces.yml)
+file [example-start-and-yarn-workspaces.yml](examples/start-and-yarn-workspaces/.github/workflows/example-start-and-yarn-workspaces.yml)
 
 ```yaml
 name: example-start-and-yarn-workspaces
@@ -1817,7 +1817,7 @@ You can set the environment variable using GitHub UI interface, or in the workfl
     DEBUG: '@step-security/cypress-io-github-action'
 ```
 
-See the [example-debug.yml](.github/workflows/example-debug.yml) workflow file.
+See the [example-debug.yml](examples/basic/.github/workflows/example-debug.yml) workflow file.
 
 To collect more verbose GitHub Action logs you can set a GitHub secret or variable `ACTIONS_STEP_DEBUG` to `true`. This
 is useful to see detailed caching steps.
@@ -2028,7 +2028,7 @@ jobs:
 The name of the GitHub Actions job is shown at the top of one or more job summaries from the same job. If multiple
 summaries belong to the same job, then giving them separate titles allows them to be uniquely identified.
 
-See the [example-chrome.yml](.github/workflows/example-chrome.yml) workflow, with multiple calls to
+See the [example-chrome.yml](examples/browser/.github/workflows/example-chrome.yml) workflow, with multiple calls to
 `step-security/cypress-io-github-action` in one job, making use of the `summary-title` parameter. View
 the [example-chrome.yml - actions log](https://github.com/step-security/cypress-io-github-action/actions/workflows/example-chrome.yml)
 for an example of the resulting job summaries.
