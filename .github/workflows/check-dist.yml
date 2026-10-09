@@ -18,7 +18,7 @@ jobs:
   check-dist:
     permissions:
       contents: read  # for actions/checkout to fetch code
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
