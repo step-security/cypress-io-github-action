@@ -16,7 +16,6 @@ jobs:
       matrix:
         os:
           - ubuntu-26.04
-          - ubuntu-26.04-arm
     runs-on: ${{ matrix.os }}
     steps:
       - name: Harden the runner (Audit all outbound calls)

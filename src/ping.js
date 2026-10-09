@@ -1,11 +1,6 @@
-<<<<<<< 85d690a5bfebbb36f2ae59bc2bb18bb0ceab9b90
-const got = require('got')
 const debug = require('debug')(
   '@step-security/cypress-io-github-action'
 )
-=======
-const debug = require('debug')('@cypress/github-action')
->>>>>>> 8843357a5d2dcffae1c338e152c8d29fd86d0cb3
 
 /**
  * A small utility for checking when an URL responds, kind of

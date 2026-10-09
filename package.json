@@ -1,6 +1,6 @@
 {
   "name": "@step-security/cypress-io-github-action",
-  "version": "7.1.6",
+  "version": "7.4.6",
   "description": "GitHub Action for running Cypress end-to-end and component tests",
   "private": true,
   "main": "dist/index.js",

@@ -2072,21 +2072,6 @@ and is generally aligned with [Node.js's release schedule](https://github.com/no
 
 Cypress itself runs with a fixed Node.js version specified by the [runs.using](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions) parameter of [action.yml](action.yml). `github-action@v7` uses `node24`.
 
-## Changelog
-
-View the [CHANGELOG](./CHANGELOG.md) document for an overview of version changes.
-
-## Compatibility
-
-- `github-action@v7` is the current recommended version, uses `node24` and is compatible with Cypress `10` and above.
-- `github-action` versions `v1` to `v6` are unsupported: they rely on Node.js `12`, `16` or `20` in End-of-life status.
-
-Cypress lists browser compatibility information under [System Requirements](https://docs.cypress.io/app/get-started/install-cypress#Browsers).
-
-## Contributing
-
-Please see our [Contributing Guideline](./CONTRIBUTING.md) which explains how to contribute fixes or features to the repo and how to test.
-
 ## License
 
 [![license][license-badge]][license-file]
