@@ -81,7 +81,6 @@ The following examples demonstrate the actions' functions.
 - Split [install and tests](#split-install-and-tests) into separate jobs
 - Split [install and tests](#split-install-and-test-with-artifacts) with artifacts
 - Use [custom install commands](#custom-install)
-- Install [only Cypress](#install-cypress-only) to avoid installing all dependencies
 - Use [timeouts](#timeouts) to avoid hanging CI jobs
 - Print [Cypress info](#print-cypress-info) like detected browsers
 - Run [tests nightly](#nightly-tests) or on any schedule
@@ -103,7 +102,7 @@ name: End-to-end tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -130,7 +129,7 @@ name: Component tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -145,8 +144,15 @@ the [example-component-test.yml](.github/workflows/example-component-test.yml) w
 
 ### Browser
 
-Specify the browser name or path with the `browser` parameter. The default browser, if none is specified, is the
-built-in [Electron browser](https://on.cypress.io/guides/guides/launching-browsers#Electron-Browser).
+Specify the browser name or path with the `browser` parameter.
+
+The default browser can be set as a [Browser](https://docs.cypress.io/app/references/configuration#Browser) configuration option `defaultBrowser`.
+If no `browser` parameter is specified and `defaultBrowser` is also undefined,
+the built-in [Electron browser](https://on.cypress.io/guides/guides/launching-browsers#Electron-Browser) is used.
+
+[cypress@16.0.0](https://docs.cypress.io/app/references/changelog#16-0-0) deprecated the Electron browser and describes the plan to remove it in a future major version of Cypress.
+
+Each of the [examples](./examples/) directories in this repo sets `defaultBrowser` to `chrome`.
 
 ### Chrome
 
@@ -155,7 +161,7 @@ name: Chrome
 on: push
 jobs:
   chrome:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: E2E on Chrome
     steps:
       - uses: actions/checkout@v7
@@ -166,25 +172,22 @@ jobs:
 
 ### Chrome for Testing
 
-To install [Google Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing/), specify a partial or full
-numerical Chrome for Testing version
-using [browser-actions/setup-chrome](https://github.com/browser-actions/setup-chrome). Refer
-to [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/) for current versions
-or [JSON API endpoints](https://github.com/GoogleChromeLabs/chrome-for-testing#json-api-endpoints) for all available
-versions.
+To install [Google Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing/)
+use [browser-actions/setup-chrome](https://github.com/browser-actions/setup-chrome).
+Refer to [Chrome for Testing availability](https://googlechromelabs.github.io/chrome-for-testing/) for current versions
+or [JSON API endpoints](https://github.com/GoogleChromeLabs/chrome-for-testing#json-api-endpoints)
+for all available versions.
 
 ```yml
 name: Chrome for Testing
 on: push
 jobs:
   chrome:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: E2E on Chrome for Testing
     steps:
       - uses: actions/checkout@v7
-      - uses: browser-actions/setup-chrome@v2
-        with:
-          chrome-version: 140
+      - uses: step-security/setup-chrome@v2
       - uses: step-security/cypress-io-github-action@v7
         with:
           browser: chrome-for-testing
@@ -197,7 +200,7 @@ name: Firefox
 on: push
 jobs:
   firefox:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: E2E on Firefox
     steps:
       - uses: actions/checkout@v7
@@ -213,7 +216,7 @@ name: Edge
 on: push
 jobs:
   edge:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: E2E on Edge
     steps:
       - uses: actions/checkout@v7
@@ -232,7 +235,7 @@ name: Chrome headed
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - uses: step-security/cypress-io-github-action@v7
@@ -250,7 +253,7 @@ name: Test in Docker
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # Cypress Docker image from https://hub.docker.com/r/cypress
     # with browsers pre-installed
     container:
@@ -278,7 +281,7 @@ name: Test with Docker cypress/included
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     container:
       # Cypress Docker image from https://hub.docker.com/r/cypress/included
       # with Cypress globally pre-installed
@@ -300,14 +303,16 @@ additional Docker images with selected components and versions.
 
 ### Env
 
-Specify the env argument with `env` parameter
+To pass an environment variable to Cypress <15.10.0 use the action's `env` parameter.
+In Cypress 15.10.0 and above, the `env` is specified for use with secret environment variables.
+It is replaced with the [expose](#expose) action parameter for public, non-sensitive environment variables.
 
 ```yml
 name: Cypress tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -329,7 +334,7 @@ name: Cypress tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -353,7 +358,7 @@ name: Cypress tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -379,7 +384,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -413,7 +418,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -463,7 +468,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -494,7 +499,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -535,7 +540,7 @@ name: Example echo PR number and URL
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -578,7 +583,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -604,7 +609,7 @@ name: tags
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # let's make sure our "app" works on several versions of Node
     strategy:
       matrix:
@@ -648,7 +653,7 @@ name: Cypress E2E Tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: E2E
     steps:
       - name: Checkout
@@ -678,7 +683,7 @@ name: Artifacts
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: Artifacts
     steps:
       - uses: actions/checkout@v7
@@ -707,7 +712,7 @@ name: example-quiet
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -730,7 +735,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -752,7 +757,7 @@ on: push
 jobs:
   cypress-run:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -767,9 +772,9 @@ jobs:
 
 **Note:** Cypress parallelization requires a [Cypress Cloud](https://on.cypress.io/cloud-introduction) account.
 
-You can spin multiple containers running in parallel using `strategy: matrix` argument. Just add more dummy items to the
-`containers: [1, 2, ...]` array to spin more free or paid containers. Then use `record` and `parallel` parameters
-to [load balance tests](https://on.cypress.io/parallelization).
+You can spin multiple jobs running in parallel using the `strategy: matrix` argument.
+Just add more dummy items to the `recording-job: [1, 2, ...]` array to create multiple job runs.
+Then use `record` and `parallel` parameters to [load balance tests](https://on.cypress.io/parallelization).
 
 ```yml
 name: Parallel Cypress Tests
@@ -777,7 +782,7 @@ on: push
 jobs:
   test:
     name: Cypress run
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       # when one test fails, DO NOT cancel the other
       # containers, because this will kill Cypress processes
@@ -786,13 +791,16 @@ jobs:
       fail-fast: false
       matrix:
         # run 3 copies of the current job in parallel
-        containers: [1, 2, 3]
+        recording-job: [1, 2, 3]
+    container:
+      image: cypress/browsers:latest
+      options: --user 1001
     steps:
       - name: Checkout
         uses: actions/checkout@v7
 
       # because of "record" and "parallel" parameters
-      # these containers will load balance all found tests among themselves
+      # these jobs will load balance all found tests among themselves
       - name: Cypress run
         uses: step-security/cypress-io-github-action@v7
         with:
@@ -802,17 +810,18 @@ jobs:
         env:
           # pass the Cypress Cloud record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.EXAMPLE_RECORDING_KEY }}
-          # Recommended: pass the GitHub token lets this action correctly
+          # Recommended: passing the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ![Parallel run](images/parallel.png)
 
-The Cypress GH Action does not spawn or create any additional containers - it only links the multiple containers spawned
-using the matrix strategy into a single logical Cypress Cloud run where it splits the specs amongst the machines. See
-the [Cypress Cloud Smart Orchestration](https://docs.cypress.io/cloud/features/smart-orchestration/overview/) guide for
-a detailed explanation.
+The Cypress GitHub Action does not spawn or create any additional jobs -
+it only links the multiple jobs spawned using the matrix strategy into a single logical Cypress Cloud run
+where it splits the specs amongst the machines.
+See the [Cypress Cloud Smart Orchestration](https://docs.cypress.io/cloud/features/smart-orchestration/overview/) guide
+for a detailed explanation.
 
 If you use the GitHub Actions facility
 for [Re-running workflows and jobs](https://docs.github.com/en/actions/managing-workflow-runs/re-running-workflows-and-jobs),
@@ -831,11 +840,17 @@ Premium features:
   also [Auto cancel after failures](#auto-cancel-after-failures) for details of how to set this option in a Cypress
   GitHub Action workflow.
 
-During staged rollout of a new GitHub-hosted runner version, GitHub may provide a mixture of current and new image
-versions used by the container matrix. It is recommended to use a [Docker image](#docker-image) in the parallel job run
-which avoids any Cypress Cloud errors due to browser major version mismatch from the two different image versions.
-A [Docker image](#docker-image) is not necessary if testing against the default built-in Electron browser because this
-browser version is fixed by the Cypress version in use and it is unaffected by any GitHub runner image rollout.
+During staged rollout of a new [GitHub-hosted runner image](https://github.com/actions/runner-images#readme) version,
+GitHub may provide a mixture of current and new image versions used by the job matrix.
+When running parallel jobs under GitHub-hosted Ubuntu runner images,
+it is recommended to use a [Docker image](#docker-image)
+to avoid any Cypress Cloud errors due to browser major version mismatch between the current and new image versions.
+
+Avoid using parallel jobs with GitHub-hosted macOS or Windows runner images,
+since there is currently no workaround for the deployment mismatch issue.
+On macOS the problem can also occur when there is an upgrade to the macOS version.
+
+[![recording example](https://github.com/cypress-io/github-action/actions/workflows/example-recording.yml/badge.svg)](.github/workflows/example-recording.yml)
 
 ### Component and E2E Testing
 
@@ -867,7 +882,7 @@ name: Build
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -887,7 +902,7 @@ name: With server
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -908,7 +923,7 @@ name: With server
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -935,7 +950,7 @@ name: With servers
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -964,7 +979,7 @@ name: After server responds
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1065,7 +1080,7 @@ name: Visual
 on: push
 jobs:
   e2e:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1127,11 +1142,14 @@ name: Parallel
 on: push
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         # run 3 copies of the current job in parallel
-        containers: [1, 2, 3]
+        recording-job: [1, 2, 3]
+    container:
+      image: cypress/browsers:latest
+      options: --user 1001
     steps:
       - uses: actions/checkout@v7
       - uses: step-security/cypress-io-github-action@v7
@@ -1173,6 +1191,9 @@ jobs:
         run: echo "value=sha-$GITHUB_SHA-time-$(date +"%s")" >> $GITHUB_OUTPUT
   smoke-tests:
     needs: ['prepare']
+    container:
+      image: cypress/browsers:latest
+      options: --user 1001
     steps:
       - uses: actions/checkout@v7
       - uses: step-security/cypress-io-github-action@v7
@@ -1214,7 +1235,7 @@ We use `working-directory: app-test` to match the above example directory struct
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - uses: step-security/cypress-io-github-action@v7
@@ -1261,7 +1282,7 @@ name: E2E
 on: push
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Install root dependencies
@@ -1297,14 +1318,14 @@ name: example-basic-pnpm
 on: push
 jobs:
   basic-pnpm:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
       - name: Install pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 11
+          version: 12
       - name: Install Node.js
         uses: actions/setup-node@v6
         with:
@@ -1355,7 +1376,7 @@ name: example-yarn-classic
 on: push
 jobs:
   yarn-classic:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1379,7 +1400,7 @@ name: example-yarn-modern
 on: push
 jobs:
   yarn-modern:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1415,7 +1436,7 @@ name: example-yarn-modern-pnp
 on: push
 jobs:
   yarn-classic:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1448,7 +1469,7 @@ jobs:
     # the example has Yarn workspace in its "root" folder
     # examples/start-and-yarn-workspaces
     # and tests in a subfolder like "workspace-1"
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - uses: step-security/cypress-io-github-action@v7
@@ -1478,7 +1499,7 @@ name: Package manager caching
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name:
     steps:
       - uses: actions/checkout@v7
@@ -1502,7 +1523,7 @@ name: End-to-end tests
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # let's make sure our "app" works on several versions of Node
     strategy:
       matrix:
@@ -1540,7 +1561,7 @@ name: Node versions
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       matrix:
         node:
@@ -1566,7 +1587,7 @@ name: E2E
 on: push
 jobs:
   test:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Install dependencies
@@ -1602,7 +1623,7 @@ name: Split build and test
 on: push
 jobs:
   build:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Build app
@@ -1620,7 +1641,7 @@ jobs:
 
   test:
     needs: build
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Restore build artifacts
@@ -1641,25 +1662,6 @@ Finally, you might not need this GH Action at all. For example, if you want to s
 from the Cypress binary installation, then it makes no sense to use this action. Instead you can install and cache
 Cypress yourself.
 
-### Install Cypress only
-
-If the project has many dependencies, but you want to install just Cypress you can combine this action with
-`actions/cache` and `npm i cypress` commands yourself.
-
-```yml
-- uses: actions/checkout@v7
-- uses: actions/cache@v5
-  with:
-    path: |
-      ~/.cache/Cypress
-      node_modules
-    key: my-cache-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-- run: npm i cypress
-- uses: step-security/cypress-io-github-action@v7
-  with:
-    install: false
-```
-
 ### Timeouts
 
 You can tell the CI to stop the job or the individual step if it runs for longer then a given time limit. This is a good
@@ -1668,7 +1670,7 @@ practice to ensure the hanging process does not accidentally use up all your CI 
 ```yml
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     # stop the job if it runs over 10 minutes
     # to prevent a hanging process from using all your CI minutes
     timeout-minutes: 10
@@ -1716,7 +1718,7 @@ name: CLI migration example
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Check out repo
         uses: actions/checkout@v7
@@ -1938,7 +1940,7 @@ name: info
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1956,7 +1958,7 @@ name: info
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -1988,7 +1990,7 @@ on:
     - cron: '0 4 * * *'
 jobs:
   nightly:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -2010,7 +2012,7 @@ name: Summary titles
 on: push
 jobs:
   tests:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - uses: actions/checkout@v7
       - name: Cypress headless tests
@@ -2042,7 +2044,7 @@ name: Example no summary
 on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -2051,6 +2053,39 @@ jobs:
         with:
           publish-summary: false
 ```
+
+## Node.js
+
+### Support
+
+Node.js is required to run this action. The recommended version `v7` supports:
+
+- **Node.js** 22.x, 24.x and 26.x
+
+and is generally aligned with [Node.js's release schedule](https://github.com/nodejs/Release#readme).
+
+### Usage
+
+`github-action` command-type options such as [`install-command`](#custom-install-command), [`build`](#build-app), [`start`](#start-server) and [`command`](#custom-test-command) are executed with the runner's version of Node.js. You can use GitHub's [actions/setup-node](https://github.com/actions/setup-node) to install an explicit Node.js version into the runner.
+
+[![Node versions example](https://github.com/cypress-io/github-action/actions/workflows/example-node-versions.yml/badge.svg)](.github/workflows/example-node-versions.yml)
+
+Cypress itself runs with a fixed Node.js version specified by the [runs.using](https://docs.github.com/en/actions/creating-actions/metadata-syntax-for-github-actions#runs-for-javascript-actions) parameter of [action.yml](action.yml). `github-action@v7` uses `node24`.
+
+## Changelog
+
+View the [CHANGELOG](./CHANGELOG.md) document for an overview of version changes.
+
+## Compatibility
+
+- `github-action@v7` is the current recommended version, uses `node24` and is compatible with Cypress `10` and above.
+- `github-action` versions `v1` to `v6` are unsupported: they rely on Node.js `12`, `16` or `20` in End-of-life status.
+
+Cypress lists browser compatibility information under [System Requirements](https://docs.cypress.io/app/get-started/install-cypress#Browsers).
+
+## Contributing
+
+Please see our [Contributing Guideline](./CONTRIBUTING.md) which explains how to contribute fixes or features to the repo and how to test.
 
 ## License
 

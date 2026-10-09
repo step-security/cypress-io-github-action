@@ -12,7 +12,7 @@ jobs:
   check-markdown:
     permissions:
       contents: read  # for actions/checkout to fetch code
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     name: Check Markdown files
     steps:
       - name: Harden the runner (Audit all outbound calls)
