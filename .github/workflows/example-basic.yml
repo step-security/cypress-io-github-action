@@ -22,8 +22,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - ubuntu-26.04
@@ -47,6 +45,7 @@ jobs:
         # because we are running these examples in a monorepo
         with:
           working-directory: examples/basic
+          browser: ${{ contains(matrix.os, 'ubuntu') && contains(matrix.os, '-arm') && 'firefox' || '' }}
           # just for full picture after installing Cypress
           # print information about detected browsers, etc
           # see https://on.cypress.io/command-line#cypress-info
@@ -58,8 +57,6 @@ jobs:
       fail-fast: false
       matrix:
         os:
-          - ubuntu-22.04
-          - ubuntu-22.04-arm
           - ubuntu-24.04
           - ubuntu-24.04-arm
           - ubuntu-26.04
@@ -88,4 +85,5 @@ jobs:
         with:
           package-manager-cache: false
           working-directory: examples/basic
+          browser: ${{ contains(matrix.os, 'ubuntu') && contains(matrix.os, '-arm') && 'firefox' || '' }}
           build: npx cypress info
